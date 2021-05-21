@@ -1,0 +1,56 @@
+<html>
+
+    <head>
+        <script src="dist/bsv.browser.min.js"></script>
+        <script src="dist/run.browser.min.js"></script>
+    </head>
+
+</html>
+
+<script>
+
+    const run = new Run({
+        owner: 'L3M9DSyvato8AgoN9YxbeD6nn6DLb5LKFeNgWLADpKm5Z1UBF6RZ',
+        purse: 'L3wb9FvyzTTzrSXTypeaD8a2dcYyGf8Yg83TMo7Hi1U9rXKK452H',
+        network: 'main'
+    });
+    run.trust('*');
+
+    class FirstCoin extends Token {}
+    FirstCoin.symbol = '1COIN';
+    FirstCoin.metadata = {
+        emoji: '💰'
+    }
+
+    const deploy = async() => {
+        run.deploy(FirstCoin);
+        await run.sync();
+        console.log(FirstCoin.location);
+    }
+
+    deploy();
+
+    const mint = async() => {
+        const contract = await run.load('ead33482f56c6e260c5f39cd2262c43099b7ad2b909917bcbe5b623bd58c973e_o1');
+        await contract.sync();
+        const coin = contract.mint(100);
+        await coin.sync();
+        console.log({coin});
+    }
+    //mint();
+    const send = async() => {
+        const coin = await run.load('035cf97d158d798974cf1f462bcf836e6c950dce90108a9b6a5fdfd01b7385b8_o2');
+        const sent = coin.send('1Mbz7yoJB5iXrsdERTUgPyQCAqVTww9GFT', 20);
+        await sent.sync();
+        console.log({sent});
+    }
+    //send();
+    const combine = async() => {
+        const contract = await run.load('ead33482f56c6e260c5f39cd2262c43099b7ad2b909917bcbe5b623bd58c973e_o1');
+        await contract.sync();
+        await run.inventory.sync();
+        const tokens = run.inventory.jigs.filter(jig => jig instanceof contract);
+        console.log({tokens});
+    }
+    //combine();
+</script>

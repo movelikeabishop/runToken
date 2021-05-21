@@ -1,0 +1,25 @@
+{
+  "name": "run",
+  "version": "0.6.22",
+  "description": "A platform to build apps and tokens on Bitcoin",
+  "keywords": [
+    "javascript",
+    "jig",
+    "jigs",
+    "berry",
+    "berries",
+    "token",
+    "tokens",
+    "smart contract",
+    "smart contracts",
+    "bitcoin",
+    "bsv",
+    "bitcoin sv"
+  ],
+  "main": "dist/run.node.min.js",
+  "browser": "dist/run.browser.min.js",
+  "license": "MIT",
+  "dependencies": {
+    "bsv": "^1.5.5"
+  }
+}
